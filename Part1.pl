@@ -58,6 +58,9 @@ three_dice(L):-dice(X), dice(Y), dice(Z), append([X], [Y], T), append([Z], T, L)
 contains([Element|_], Element).
 contains([_|T], Element):-contains(T, Element).
 
-distinct([H|T], Result):-distinct(T,Result), contains(H, Result). %se l'elemento è contenuto nella lista vado avanti
-distinct([H|T], Result):-distinct(T,R), append([H], R, Result). %se l'elemento non è contenuto nella lista lo aggiungo
+notContains([H|T], Element):-H\=Element, notContains(T, Element).
+notContains([], _).
+
+distinct([H|T], Result):-distinct(T,R), write(" non contiene "), notContains(H, R), append([H], R, Result). %se è contenuto 
+distinct([H|T], Result):-distinct(T,R), write(" contiene "), contains(H, R), Result is R. %se l'elemento è contenuto nella lista vado avanti
 distinct([], []).
