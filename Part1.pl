@@ -61,6 +61,9 @@ contains([_|T], Element):-contains(T, Element).
 notContains([H|T], Element):-H\=Element, notContains(T, Element).
 notContains([], _).
 
-distinct([H|T], Result):-distinct(T,R), write(" non contiene "), notContains(H, R), append([H], R, Result). %se è contenuto 
-distinct([H|T], Result):-distinct(T,R), write(" contiene "), contains(H, R), Result is R. %se l'elemento è contenuto nella lista vado avanti
+distinct([H|T], Result):-distinct(T,R), notContains(R, H), append([H], R, Result). %se non è contenuto -> viene aggiunto
+distinct([H|T], Result):-distinct(T,Result), !. %se è contenuto, vado avanti
 distinct([], []).
+
+
+
